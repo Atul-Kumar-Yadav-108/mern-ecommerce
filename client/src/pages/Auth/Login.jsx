@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../../components/layout/Layout'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 import { useAuth } from '../../context/Auth'
@@ -9,7 +9,8 @@ const Login = () => {
     const [email, setEmail]=useState("");
     const [password, setPassword]=useState("");
     const [auth, setAuth]=useAuth();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
     async function handleLogin(e) {
         e.preventDefault();
         try {
@@ -21,7 +22,7 @@ const Login = () => {
                             token : res.data.token
                         })
                         localStorage.setItem("auth" ,JSON.stringify(res.data));
-                        navigate("/");
+                        navigate(location.state || "/"); //navigate to home page
                         setEmail("");
                         setPassword("");
                     }else{

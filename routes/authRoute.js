@@ -14,4 +14,11 @@ router.post("/login", loginController);
 // test || get method
 router.get("/test",requireSignIn,isAdmin, testController);
 
+// protected route auth || get method
+router.get("/user-auth",requireSignIn, (req, res)=>{
+    console.log("main aaya route me dont");
+    
+    res.status(200).send({"ok":true});
+});
+
 export default router
